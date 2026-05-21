@@ -10,20 +10,12 @@ class RoleMiddleware
 {
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        $user = $request->user();
-
-        if (!$user) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized. Please login.'
-            ], 401);
+        if (!auth()->check()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        if ($user->role !== $role) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Forbidden. You do not have access to this resource.'
-            ], 403);
+        if (auth()->user()->role !== $role) {
+            return response()->json(['message' => 'Forbidden: ' . $role . ' access required'], 403);
         }
 
         return $next($request);

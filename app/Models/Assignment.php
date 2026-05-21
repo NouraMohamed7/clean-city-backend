@@ -10,16 +10,21 @@ class Assignment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'report_id',
-        'company_id',
-        'status',
-        'completed_at',
-    ];
+protected $fillable = [
+    'report_id',
+    'company_id',
+    'status',
+    'assigned_at',
+    'assigned_by',
+    'completed_at',
+];
 
-    protected $casts = [
-        'completed_at' => 'datetime',
-    ];
+protected $casts = [
+    'assigned_at' => 'datetime',
+    'completed_at' => 'datetime',
+];
+
+  
 
     public function report(): BelongsTo
     {

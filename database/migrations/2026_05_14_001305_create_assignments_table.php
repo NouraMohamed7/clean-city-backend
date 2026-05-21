@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('report_id')->unique()->constrained('reports');
+            $table->foreignId('report_id')->constrained('reports');
             $table->foreignId('company_id')->constrained('companies');
             $table->enum('status', ['active', 'completed', 'cancelled'])->default('active');
             $table->timestamp('completed_at')->nullable();
