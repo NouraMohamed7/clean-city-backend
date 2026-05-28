@@ -23,6 +23,8 @@ return new class extends Migration
             $table->integer('total_resolved')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
         });
     }
 

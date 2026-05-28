@@ -35,8 +35,23 @@ class AuthService
                 'phone' => $data['company']['phone'] ?? null,
                 'email' => $data['email'],
                 'is_active' => true,
+                'latitude' => $data['company']['latitude'] ?? null,
+            'longitude' => $data['company']['longitude'] ?? null,
             ]);
         }
+
+if ($user->role === 'company') {
+    if (
+        empty($data['company']['latitude']) ||
+        empty($data['company']['longitude'])
+    ) {
+        throw ValidationException::withMessages([
+            'company.location' => 'Company location is required.',
+        ]);
+    }
+}
+
+
 
         $token = $user->createToken('cleancity')->plainTextToken;
 

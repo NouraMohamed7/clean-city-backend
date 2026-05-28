@@ -11,18 +11,19 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'name',
-        'city_id',
-        'coverage_areas',
-        'phone',
-        'email',
-        'rating_average',
-        'total_resolved',
-        'is_active',
-    ];
-
+protected $fillable = [
+    'user_id',
+    'name',
+    'city_id',
+    'coverage_areas',
+    'phone',
+    'email',
+    'latitude',
+    'longitude',
+    'rating_average',
+    'total_resolved',
+    'is_active',
+];
     protected $casts = [
         'rating_average' => 'decimal:1',
         'total_resolved' => 'integer',

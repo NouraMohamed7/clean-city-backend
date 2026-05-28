@@ -71,10 +71,10 @@ class Report extends Model
         return $this->hasMany(Upvote::class);
     }
 
-    public function assignment(): HasOne
-    {
-        return $this->hasOne(Assignment::class);
-    }
+public function assignments(): HasMany
+{
+    return $this->hasMany(Assignment::class);
+}
 
     public function assignedCompany(): BelongsTo
     {

@@ -13,6 +13,7 @@ class CompanyService
     public function getPerformance(Company $company, int $days = 30): array
     {
         $reports = $company->reports()
+        
             ->where('created_at', '>=', now()->subDays($days))
             ->get();
 

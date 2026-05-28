@@ -16,9 +16,12 @@ return new class extends Migration
             $table->foreignId('report_id')->constrained('reports')->onDelete('cascade');
             $table->enum('from_status', ['pending', 'assigned', 'in_progress', 'resolved', 'rejected']);
             $table->enum('to_status', ['pending', 'assigned', 'in_progress', 'resolved', 'rejected']);
-            $table->foreignId('changed_by')->constrained('users');
+            $table->foreignId('changed_by')
+    ->nullable()
+    ->constrained('users');
             $table->text('note')->nullable();
             $table->timestamps();
+
             $table->index(['report_id', 'created_at']);
         });
     }

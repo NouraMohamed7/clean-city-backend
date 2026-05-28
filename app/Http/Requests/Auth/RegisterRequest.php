@@ -22,6 +22,8 @@ class RegisterRequest extends FormRequest
             'company.name' => ['required_if:role,company', 'string', 'max:255'],
             'company.city_id' => ['required_if:role,company', 'exists:cities,id'],
             'company.phone' => ['nullable', 'string'],
+            'company.latitude' => ['required_if:role,company', 'numeric'],
+'company.longitude' => ['required_if:role,company', 'numeric'],
         ];
     }
 
