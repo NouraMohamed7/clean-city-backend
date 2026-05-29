@@ -10,6 +10,7 @@ use App\Models\StatusHistory;
 use App\Helpers\TokenHelper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 
 class ReportService
 {
@@ -22,9 +23,8 @@ class ReportService
     /**
      * Create new report
      */
-    public function create(array $data, User $user): Report
-    {
-        return DB::transaction(function () use ($data, $user) {
+    public function create(array $data, User $user, $images = null): Report{
+       return DB::transaction(function () use ($data, $user, $images) {
             // Create report
             $report = Report::create([
                 'user_id' => $user->id,
@@ -42,16 +42,21 @@ class ReportService
             ]);
 
             // Upload images
-            if (!empty($data['images'])) {
-                foreach ($data['images'] as $image) {
-                    $path = $image->store('reports/' . $report->id, 'public');
-                    ReportImage::create([
-                        'report_id' => $report->id,
-                        'image_path' => $path,
-                        'type' => 'before',
-                    ]);
-                }
-            }
+
+// Upload images
+if ($images) {
+
+    foreach ($images as $image) {
+
+        $path = $image->store('reports/' . $report->id, 'public');
+
+        ReportImage::create([
+            'report_id' => $report->id,
+            'image_path' => $path,
+            'type' => 'before',
+        ]);
+    }
+}
 
             // Log status history
             StatusHistory::create([

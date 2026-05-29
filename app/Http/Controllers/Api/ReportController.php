@@ -38,7 +38,11 @@ class ReportController extends Controller
 
     public function store(StoreReportRequest $request)
     {
-        $report = $this->reportService->create($request->validated(), $request->user());
+        $report = $this->reportService->create(
+    $request->validated(),
+    $request->user(),
+    $request->file('images')
+);
         return $this->successResponse($report, 'Report submitted successfully', 201);
     }
 
